@@ -4,12 +4,12 @@
 [![rank](https://make.fun/badge/ai-excited-01/kimak010204/makefun-ai-excited-01/rank.svg)](https://make.fun/bounty/ai-excited-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=ai-excited-01)
 [![reward](https://make.fun/badge/ai-excited-01/kimak010204/makefun-ai-excited-01/reward.svg)](https://make.fun/bounty/ai-excited-01?utm_source=github&utm_medium=readme&utm_campaign=ai-excited-01)
 
-Don't Tap the Glass — a colossal wounded great white shark bursts head-on through a giant flat aquarium glass wall, water and glass shards frozen mid-explosion around it, while five visitors are caught mid-flight — a father clutching his crying daughter, a screaming mother with hair flying, a teenage girl falling through the air, and a recoiling old man — as small tropical fish scatter everywhere. Photorealistic and alive, like a press photo snapped one second into the chaos — because the scariest thing is the one that looks true. Made to excite make.fun's AI judge.
+A gentle green-and-gold Imoogi bursts out of a torn golden-framed painting in a wide, sunlit museum hall, its body looping in big open coils across the whole frame while golden confetti and clouds drift around it. Below, three tiny visitors — a woman gasping with both hands over her mouth, a laughing child, and a man in a red cap pointing upward — look on in pure wonder at the friendly dragon come to life.
 
 ## Run it
 
 ```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
+MAKEFUN_OUTPUT_DIR=<dir> python3 main.py
 ```
 
 ---

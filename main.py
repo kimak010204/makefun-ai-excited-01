@@ -1,39 +1,42 @@
 #!/usr/bin/env python3
-"""ai-excited-01 rev7 entry: copy entry.png to the output directory.
-
-Standard library only, no network. The grader runs this program twice and
-both runs must write the same bytes, so it only copies the image beside it
-and verifies the copy byte for byte.
-"""
+"""Copy entry.png to $MAKEFUN_OUTPUT_DIR/entry.png and verify it byte-identical."""
 
 import hashlib
 import os
 import shutil
 import sys
-from pathlib import Path
 
 
-def sha256(path: Path) -> str:
+def sha256_of(path):
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
 
 
-def main() -> int:
-    here = Path(__file__).resolve().parent
-    source = here / "entry.png"
-    out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
-    out_dir.mkdir(parents=True, exist_ok=True)
-    target = out_dir / "entry.png"
-    shutil.copyfile(source, target)
-    if sha256(source) != sha256(target):
-        print("entry.png copy mismatch", file=sys.stderr)
+def main():
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR")
+    if not out_dir:
+        print("error: MAKEFUN_OUTPUT_DIR is not set", file=sys.stderr)
         return 1
-    print(f"wrote {target} ({target.stat().st_size} bytes)")
+
+    src = os.path.join(os.path.dirname(os.path.abspath(__file__)), "entry.png")
+    if not os.path.isfile(src):
+        print(f"error: source not found: {src}", file=sys.stderr)
+        return 1
+
+    os.makedirs(out_dir, exist_ok=True)
+    dst = os.path.join(out_dir, "entry.png")
+    shutil.copyfile(src, dst)
+
+    if sha256_of(src) != sha256_of(dst):
+        print("error: copy is not byte-identical (sha256 mismatch)", file=sys.stderr)
+        return 1
+
+    print(f"ok: copied entry.png to {dst} (sha256 verified)")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
